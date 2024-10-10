@@ -1,6 +1,6 @@
-function compress() {}
+async function compress(ctx) {}
 
-function decompress() {}
+async function decompress(ctx) {}
 
 export default [
   {

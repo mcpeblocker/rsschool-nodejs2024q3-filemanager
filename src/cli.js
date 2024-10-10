@@ -1,4 +1,5 @@
 import process from "node:process";
+import * as readline from "node:readline/promises";
 
 const TEMPLATE_MESSAGE = "(e.g. in the format: --key1=value1 --key2=value2)";
 const NO_PREFIX_ERROR = new Error(
@@ -35,4 +36,11 @@ export function parseCliArgs() {
     process.exit(1);
   }
   return args;
+}
+
+export function getRlInterface() {
+  return readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
 }

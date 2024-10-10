@@ -1,4 +1,4 @@
-function hash(options) {}
+async function hash(ctx) {}
 
 export default [
   {

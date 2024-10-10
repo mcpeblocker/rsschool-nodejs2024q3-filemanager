@@ -1,14 +1,14 @@
-function cat(options) {}
+async function cat(ctx) {}
 
-function add(options) {}
+async function add(ctx) {}
 
-function rn(options) {}
+async function rn(ctx) {}
 
-function cp(options) {}
+async function cp(ctx) {}
 
-function mv(options) {}
+async function mv(ctx) {}
 
-function rm(options) {}
+async function rm(ctx) {}
 
 export default [
   {

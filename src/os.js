@@ -1,37 +1,62 @@
-function eol(ctx) {}
+import os from "node:os";
+import errors from "./errors.js";
 
-function cpus(ctx) {}
+// os --EOL - get EOL
+async function eol() {
+  console.log("Below is the EOL marker for your OS:");
+  console.log(os.EOL);
+  console.log("Above is the EOL marker for your OS:");
+}
 
-function homedir(ctx) {}
+// os --cpus - get cpu info
+async function cpus() {
+  const data = os.cpus();
+  console.log("Number of logical CPU cores in your system: " + data.length);
+  const content = data.map((item) => ({
+    Model: item.model,
+    "Clock Rate (GHz)": item.speed / 1000,
+  }));
+  console.table(content);
+}
 
-function username(ctx) {}
+// os --homedir - get home dir
+async function homedir() {
+  console.log(os.homedir());
+}
 
-function architecture(ctx) {}
+// os --username - get system user name
+async function username() {
+  try {
+    console.log(os.userInfo().username);
+  } catch (_) {
+    throw errors.OPERATION_FAILED;
+  }
+}
+
+// os --architecture - get cpu architecture
+async function architecture() {
+  console.log(os.arch());
+}
 
 export default [
   {
-    // os --EOL - get EOL
     matches: (command) => command === "os --EOL",
     execute: eol,
   },
   {
-    // os --cpus - get cpu info
     matches: (command) => command === "os --cpus",
-    execute: eol,
+    execute: cpus,
   },
   {
-    // os --homedir - get home dir
     matches: (command) => command === "os --homedir",
-    execute: eol,
+    execute: homedir,
   },
   {
-    // os --username - get system user name
     matches: (command) => command === "os --username",
-    execute: eol,
+    execute: username,
   },
   {
-    // os --architecture - get cpu architecture
     matches: (command) => command === "os --architecture",
-    execute: eol,
+    execute: architecture,
   },
 ];

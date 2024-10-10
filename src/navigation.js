@@ -1,26 +1,17 @@
-import os from "node:os";
 import path from "node:path";
 import fsPromises from "node:fs/promises";
 import errors from "./errors.js";
-
-// Utilities
-const rootDir = path.parse(os.homedir()).root;
-const isDir = async (p) =>
-  await fsPromises
-    .stat(p)
-    .then((stats) => stats.isDirectory())
-    .catch(() => false);
-function getDirentType(dirent) {
-  if (dirent.isDirectory()) return "directory";
-  if (dirent.isFile()) return "file";
-  return null;
-}
+import * as utils from "./utils.js";
 
 // up - go up from current directory
 async function up(ctx) {
-  if (ctx.currentPath === rootDir) return;
-  const newPath = path.resolve(ctx.currentPath, "../");
-  return { currentPath: newPath };
+  if (ctx.currentPath === utils.rootDir) return;
+  try {
+    const newPath = path.resolve(ctx.currentPath, "../");
+    return { currentPath: newPath };
+  } catch (_) {
+    throw errors.OPERATION_FAILED;
+  }
 }
 
 // cd ___ - go to directory
@@ -30,34 +21,43 @@ async function cd(ctx) {
   const metadata = ctx.command.slice(prefix.length);
   if (!metadata || typeof metadata !== "string") throw errors.INVALID_INPUT;
   // cd operation
-  const cdPath = path.resolve(ctx.currentPath, metadata);
-  const isValid = await isDir(cdPath);
-  if (!isValid) throw errors.OPERATION_FAILED;
-  return { currentPath: cdPath };
+  try {
+    const cdPath = path.resolve(ctx.currentPath, metadata);
+    const isValid = await utils.isPathDir(cdPath);
+    if (!isValid) throw errors.OPERATION_FAILED;
+    return { currentPath: cdPath };
+  } catch (_) {
+    throw errors.OPERATION_FAILED;
+  }
 }
 
 // ls - list dir
 async function ls(ctx) {
-  const dirents = await fsPromises.readdir(ctx.currentPath, {
-    withFileTypes: true,
-  });
-  const contents = dirents
-    .reduce((acc, dirent) => {
-      const info = {
-        Name: dirent.name,
-        Type: getDirentType(dirent),
-      };
-      return info.Type === null ? acc : [...acc, info];
-    }, [])
-    .sort((a, b) => {
-      const rankA = a.Type === "directory" ? 1 : 2;
-      const rankB = b.Type === "directory" ? 1 : 2;
-      if (rankA === rankB) {
-        return a.Name.toLowerCase() > b.Name.toLowerCase() ? 1 : -1;
-      }
-      return rankA - rankB;
+  try {
+    const dirents = await fsPromises.readdir(ctx.currentPath, {
+      withFileTypes: true,
     });
-  console.table(contents);
+    const content = dirents
+      .reduce((acc, dirent) => {
+        const info = {
+          Name: dirent.name,
+          Type: utils.getDirentType(dirent),
+        };
+        return info.Type === null ? acc : [...acc, info];
+      }, [])
+      .sort((a, b) => {
+        const rankA = a.Type === "directory" ? 1 : 2;
+        const rankB = b.Type === "directory" ? 1 : 2;
+        if (rankA === rankB) {
+          // in case of entities with the same type, sort alphabetically
+          return a.Name.toLowerCase() > b.Name.toLowerCase() ? 1 : -1;
+        }
+        return rankA - rankB;
+      });
+    console.table(content);
+  } catch (_) {
+    throw errors.OPERATION_FAILED;
+  }
 }
 
 export default [

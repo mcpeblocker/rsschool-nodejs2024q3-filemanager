@@ -84,24 +84,24 @@ List of operations and their syntax:
   ```bash
   rm path_to_file
   ```
-- [ ] Operating system info (prints following information in console)
-  - [ ] Get EOL (default system End-Of-Line) and print it to console
+- [x] Operating system info (prints following information in console)
+  - [x] Get EOL (default system End-Of-Line) and print it to console
   ```bash
   os --EOL
   ```
-  - [ ] Get host machine CPUs info (overall amount of CPUS plus model and clock rate (in GHz) for each of them) and print it to console
+  - [x] Get host machine CPUs info (overall amount of CPUS plus model and clock rate (in GHz) for each of them) and print it to console
   ```bash
   os --cpus
   ```
-  - [ ] Get home directory and print it to console
+  - [x] Get home directory and print it to console
   ```bash
   os --homedir
   ```
-  - [ ] Get current _system user name_ (Do not confuse with the username that is set when the application starts) and print it to console
+  - [x] Get current _system user name_ (Do not confuse with the username that is set when the application starts) and print it to console
   ```bash
   os --username
   ```
-  - [ ] Get CPU architecture for which Node.js binary has compiled and print it to console
+  - [x] Get CPU architecture for which Node.js binary has compiled and print it to console
   ```bash
   os --architecture
   ```

@@ -1,7 +1,6 @@
 import process from "node:process";
 import os from "node:os";
-import { parseCliArgs } from "./cli.js";
-import { getRlInterface } from "./io.js";
+import { parseCliArgs, getRlInterface } from "./cli.js";
 import errors from "./errors.js";
 import navigationHandlers from "./navigation.js";
 import fileHandlers from "./file.js";
@@ -46,7 +45,7 @@ async function main() {
   console.log(`Welcome to the File Manager, ${args.username}!`);
   while (true) {
     const command = await input.question(
-      `You are currently in ${ctx.currentPath}\n$ `
+      `~ You are currently in ${ctx.currentPath}\n$ `
     );
     try {
       // get the appropriate handler for the given command
