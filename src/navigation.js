@@ -3,7 +3,11 @@ import fsPromises from "node:fs/promises";
 import errors from "./errors.js";
 import * as utils from "./utils.js";
 
-// up - go up from current directory
+/**
+ * up
+ * Go upper from current directory
+ * (when you are in the root folder this operation shouldn't change working directory)
+ */
 async function up(ctx) {
   if (ctx.currentPath === utils.rootDir) return;
   try {
@@ -14,10 +18,13 @@ async function up(ctx) {
   }
 }
 
-// cd ___ - go to directory
+/**
+ * cd path_to_directory
+ * Go to dedicated folder from current directory 
+ * (path_to_directory can be relative or absolute)
+ */
 async function cd(ctx) {
   const metadata = utils.extractMetadata(ctx.command, "cd ");
-  // cd operation
   try {
     const cdPath = path.resolve(ctx.currentPath, metadata);
     const isValid = await utils.isPathDir(cdPath);
@@ -28,7 +35,14 @@ async function cd(ctx) {
   }
 }
 
-// ls - list dir
+/**
+ * ls
+ * Print in console list of all files and folders in current directory. 
+ * List should contain:
+ *  - list should contain files and folder names (for files - with extension)
+ *  - folders and files are sorted in alphabetical order ascending, but list of folders goes first 
+ *  - type of directory content should be marked explicitly (e.g. as a corresponding column value)
+ */
 async function ls(ctx) {
   try {
     const dirents = await fsPromises.readdir(ctx.currentPath, {

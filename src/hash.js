@@ -4,7 +4,10 @@ import fsPromises from "node:fs/promises";
 import errors from "./errors.js";
 import * as utils from "./utils.js";
 
-// hash ___ - hash for file
+/**
+ * hash path_to_file
+ * Calculate hash for file and print it into console
+ */
 async function hash(ctx) {
   const metadata = utils.extractMetadata(ctx.command, "hash ");
   try {
