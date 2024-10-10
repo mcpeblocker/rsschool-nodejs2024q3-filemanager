@@ -1,5 +1,6 @@
 {
   "name": "file-manager",
+  "description": "Implementation for the \"File Manager\" assignment in the NodeJS 2024 Q3 course provided by RS School",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/mcpeblocker/rsschool-nodejs2024q3-filemanager.git",
