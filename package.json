@@ -1,0 +1,11 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mcpeblocker/rsschool-nodejs2024q3-filemanager.git",
+  "author": "Alisher Ortiqov <mcpeblocker>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ."
+  }
+}
