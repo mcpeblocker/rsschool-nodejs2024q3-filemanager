@@ -62,7 +62,7 @@ async function main() {
       if (error === errors.INVALID_INPUT || error === errors.OPERATION_FAILED) {
         console.error(error.message);
       } else {
-        /** 
+        /**
          * REMOVE BEFORE SUBMISSION!!!
          */
         console.error("UNHANDLED ERROR!");
