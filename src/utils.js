@@ -1,6 +1,7 @@
 import path from "node:path";
 import os from "node:os";
 import fsPromises from "node:fs/promises";
+import errors from "./errors.js";
 
 // Utilities
 export const rootDir = path.parse(os.homedir()).root;
@@ -20,5 +21,11 @@ export const getDirentType = (dirent) => {
 export const extractMetadata = (command, prefix = "") => {
   const metadata = command.slice(prefix.length);
   if (!metadata || typeof metadata !== "string") throw errors.INVALID_INPUT;
-  return metadata;
+  return metadata.trim();
+};
+
+export const extractTwoArgs = (metadata) => {
+  const args = metadata.split(" "); // must have 2 arguments
+  if (args.length !== 2) throw errors.INVALID_INPUT;
+  return args;
 };

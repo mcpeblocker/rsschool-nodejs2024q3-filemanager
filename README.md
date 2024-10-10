@@ -11,11 +11,11 @@ The task is to implement File Manager using Node.js APIs.
 The file manager is be able to do the following:
 
 - [x] Work using CLI
-- [ ] Perform basic file operations (copy, move, delete, rename, etc.)
-- [ ] Utilize Streams API
+- [x] Perform basic file operations (copy, move, delete, rename, etc.)
+- [x] Utilize Streams API
 - [x] Get information about the host machine operating system
 - [x] Perform hash calculations
-- [ ] Compress and decompress files
+- [x] Compress and decompress files
 
 ## Technical requirements
 
@@ -59,28 +59,28 @@ List of operations and their syntax:
   ```
   Example of how `ls` command output may look like  
    ![ls output example](https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/file-manager/ls-example.JPG?raw=true)
-- [ ] Basic operations with files
-  - [ ] Read file and print it's content in console (should be done using Readable stream):
+- [x] Basic operations with files
+  - [x] Read file and print it's content in console (should be done using Readable stream):
   ```bash
   cat path_to_file
   ```
-  - [ ] Create empty file in current working directory:
+  - [x] Create empty file in current working directory:
   ```bash
   add new_file_name
   ```
-  - [ ] Rename file (content should remain unchanged):
+  - [x] Rename file (content should remain unchanged):
   ```bash
   rn path_to_file new_filename
   ```
-  - [ ] Copy file (should be done using Readable and Writable streams):
+  - [x] Copy file (should be done using Readable and Writable streams):
   ```bash
   cp path_to_file path_to_new_directory
   ```
-  - [ ] Move file (same as copy but initial file is deleted, copying part should be done using Readable and Writable streams):
+  - [x] Move file (same as copy but initial file is deleted, copying part should be done using Readable and Writable streams):
   ```bash
   mv path_to_file path_to_new_directory
   ```
-  - [ ] Delete file:
+  - [x] Delete file:
   ```bash
   rm path_to_file
   ```
@@ -110,12 +110,12 @@ List of operations and their syntax:
   ```bash
   hash path_to_file
   ```
-- [ ] Compress and decompress operations
-  - [ ] Compress file (using Brotli algorithm, should be done using Streams API)
+- [x] Compress and decompress operations
+  - [x] Compress file (using Brotli algorithm, should be done using Streams API)
   ```bash
   compress path_to_file path_to_destination
   ```
-  - [ ] Decompress file (using Brotli algorithm, should be done using Streams API)
+  - [x] Decompress file (using Brotli algorithm, should be done using Streams API)
   ```bash
   decompress path_to_file path_to_destination
   ```

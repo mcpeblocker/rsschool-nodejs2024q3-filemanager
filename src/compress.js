@@ -8,19 +8,17 @@ import errors from "./errors.js";
 // compress ___ ___ - compress file into archive
 async function compress(ctx) {
   const metadata = utils.extractMetadata(ctx.command, "compress ");
-  const paths = metadata.split(" "); // must have got 2 arguments
-  if (paths.length !== 2) throw errors.INVALID_INPUT;
+  const [source, destination] = utils
+    .extractTwoArgs(metadata)
+    .map((p) => path.resolve(ctx.currentPath, p));
   try {
-    const [source, destination] = paths.map((p) =>
-      path.resolve(ctx.currentPath, p)
-    );
     const zipper = zlib.createBrotliCompress();
     await stream.pipeline(
       fs.createReadStream(source),
       zipper,
       fs.createWriteStream(destination)
     );
-    console.log("Compressed successfully");
+    console.log("Compress complete");
   } catch (_) {
     throw errors.OPERATION_FAILED;
   }
@@ -29,19 +27,17 @@ async function compress(ctx) {
 // decompress ___ ___ - decompress file from archive to file
 async function decompress(ctx) {
   const metadata = utils.extractMetadata(ctx.command, "decompress ");
-  const paths = metadata.split(" "); // must have got 2 arguments
-  if (paths.length !== 2) throw errors.INVALID_INPUT;
+  const [source, destination] = utils
+    .extractTwoArgs(metadata)
+    .map((p) => path.resolve(ctx.currentPath, p));
   try {
-    const [source, destination] = paths.map((p) =>
-      path.resolve(ctx.currentPath, p)
-    );
     const unzip = zlib.createBrotliDecompress();
     await stream.pipeline(
       fs.createReadStream(source),
       unzip,
       fs.createWriteStream(destination)
     );
-    console.log("Uncompressed successfully");
+    console.log("Uncompress complete");
   } catch (_) {
     throw errors.OPERATION_FAILED;
   }
