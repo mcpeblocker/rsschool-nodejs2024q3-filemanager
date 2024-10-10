@@ -16,3 +16,9 @@ export const getDirentType = (dirent) => {
   if (dirent.isFile()) return "file";
   return null;
 };
+
+export const extractMetadata = (command, prefix = "") => {
+  const metadata = command.slice(prefix.length);
+  if (!metadata || typeof metadata !== "string") throw errors.INVALID_INPUT;
+  return metadata;
+};

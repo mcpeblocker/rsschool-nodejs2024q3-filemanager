@@ -16,10 +16,7 @@ async function up(ctx) {
 
 // cd ___ - go to directory
 async function cd(ctx) {
-  // Metadata extraction
-  const prefix = "cd ";
-  const metadata = ctx.command.slice(prefix.length);
-  if (!metadata || typeof metadata !== "string") throw errors.INVALID_INPUT;
+  const metadata = utils.extractMetadata(ctx.command, "cd ");
   // cd operation
   try {
     const cdPath = path.resolve(ctx.currentPath, metadata);

@@ -1,8 +1,24 @@
-async function hash(ctx) {}
+import path from "node:path";
+import crypto from "node:crypto";
+import fsPromises from "node:fs/promises";
+import errors from "./errors.js";
+import * as utils from "./utils.js";
+
+// hash ___ - hash for file
+async function hash(ctx) {
+  const metadata = utils.extractMetadata(ctx.command, "hash ");
+  try {
+    const filePath = path.resolve(ctx.currentPath, metadata);
+    const content = await fsPromises.readFile(filePath, { encoding: "utf8" });
+    const hash = crypto.createHash("sha256").update(content).digest("hex");
+    console.log(hash);
+  } catch (_) {
+    throw errors.OPERATION_FAILED;
+  }
+}
 
 export default [
   {
-    // hash ___ - hash for file
     matches: (command) => command.startsWith("hash "),
     execute: hash,
   },

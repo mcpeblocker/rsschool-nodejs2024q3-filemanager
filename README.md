@@ -14,7 +14,7 @@ The file manager is be able to do the following:
 - [ ] Perform basic file operations (copy, move, delete, rename, etc.)
 - [ ] Utilize Streams API
 - [x] Get information about the host machine operating system
-- [ ] Perform hash calculations
+- [x] Perform hash calculations
 - [ ] Compress and decompress files
 
 ## Technical requirements
@@ -105,8 +105,8 @@ List of operations and their syntax:
   ```bash
   os --architecture
   ```
-- [ ] Hash calculation
-  - [ ] Calculate hash for file and print it into console
+- [x] Hash calculation
+  - [x] Calculate hash for file and print it into console
   ```bash
   hash path_to_file
   ```
