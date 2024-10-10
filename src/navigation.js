@@ -11,14 +11,9 @@ const isDir = async (p) =>
     .then((stats) => stats.isDirectory())
     .catch(() => false);
 function getDirentType(dirent) {
-  if (dirent.isBlockDevice()) return "block device";
-  if (dirent.isCharacterDevice()) return "char device";
   if (dirent.isDirectory()) return "directory";
-  if (dirent.isFIFO()) return "FIFO pipe";
   if (dirent.isFile()) return "file";
-  if (dirent.isSocket()) return "socket";
-  if (dirent.isSymbolicLink()) return "symlink";
-  return "unknown";
+  return null;
 }
 
 // up - go up from current directory
@@ -52,7 +47,7 @@ async function ls(ctx) {
         Name: dirent.name,
         Type: getDirentType(dirent),
       };
-      return ["directory", "file"].includes(info.Type) ? [...acc, info] : acc;
+      return info.Type === null ? acc : [...acc, info];
     }, [])
     .sort((a, b) => {
       const rankA = a.Type === "directory" ? 1 : 2;
